@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Relief</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+</head>
+
+<body style="background-color: #1F1C27;">
+    <div class="container">
+        <p></p>
+        <h1 class="text-center" style="font-size: 54px;color: rgb(255,80,69);">Relief</h1>
+        <p class="text-center" style="color: rgb(255,255,255);font-size: 30px;">Stay away from rumors and Join the fight against COVID19</p>
+        <img class="rounded img-fluid" src="{% static 'assets/img/martin-sanchez-j2c7yf223Mk-unsplash.jpg' %}">
+        <p>.</p>
+        <div class="row">
+            <div class="col">
+                <div class="jumbotron" style="background-color: rgba(55,130,241,0.31);">
+                    <h1 class="text-center" style="font-size: 33px;color: rgb(255,255,255);">Get accurate data of COVID19 cases of any country.<br></h1>
+                    <form action="form" method="post">
+                        {% csrf_token %}
+                    <p class="text-center">
+                        <input type="text" placeholder="Country" name="country">
+                        <input type="submit" ></p>
+                        </form>
+                </div>
+            </div>
+            <div class="col">
+                <form action="local" method="post">
+                    {% csrf_token %}
+                <div class="jumbotron" style="background-color: rgba(55,130,241,0.31);">
+                    <h1 class="text-center" style="color: rgb(255,255,255);font-size: 42px;">To get information about your loaclity.</h1>
+                    <p class="text-center"><input type="submit"></p>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>

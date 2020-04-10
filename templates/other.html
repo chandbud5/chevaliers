@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Relief</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+</head>
+
+<body style="background-color: #1F1C27;color: rgb(255,255,255);">
+    <p></p>
+    <h1 class="text-center" style="font-size: 54px;color: rgb(255,80,69);">Relief</h1>
+    <p class="text-center" style="color: rgb(255,255,255);font-size: 30px;">Stay away from rumors and Join the fight against COVID19</p>
+    <p>.</p>
+    <div class="table-responsive" style="color:rgb(255,255,255);">
+        <table class="table">
+            <thead style="color: rgb(255,255,255);font-size: 25px;">
+                <tr>
+                    <th>Title</th>
+                    <th>Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="color: rgb(255,255,255);font-size: 18px;">Name</td>
+                    <td style="color: rgb(255,255,255);">{{ country }}</td>
+                </tr>
+                <tr>
+                    <td style="color: rgb(255,255,255);font-size: 18px;">Confirmed Cases</td>
+                    <td style="color: rgb(255,255,255);">{{ cases }}</td>
+                </tr>
+                <tr>
+                    <td style="color: rgb(255,255,255);font-size: 18px;">Total Deaths</td>
+                    <td style="color: rgb(255,255,255);">{{ deaths }}</td>
+                </tr>
+                <tr>
+                    <td style="color: rgb(255,255,255);font-size: 18px;">Total Recovered</td>
+                    <td style="color: rgb(255,255,255);">{{ recovered }}</td>
+                </tr>
+                <tr>
+                    <td style="color: rgb(255,255,255);font-size: 18px;">Cases per 1 Million</td>
+                    <td style="color: rgb(255,255,255);">{{ perm }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>
