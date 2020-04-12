@@ -10,6 +10,10 @@ def index(request):
 def form(request):
     country = request.POST['country']
     country = country.capitalize()
+
+    if country=='Usa' or country=='Uk':
+        country = country.upper()
+
     # url declared and fetching from url
     url = 'https://www.worldometers.info/coronavirus/'
     html = requests.post(url)
