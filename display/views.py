@@ -5,18 +5,10 @@ from bs4 import BeautifulSoup
 
 # Create your views here.
 def index(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-
-    return render(request,'index.html',{'ip':ip})
+    return render(request,'index.html')
 
 def form(request):
     country = request.POST['country']
-    country = country.capitalize()
-    # url declared and fetching from url
     url = 'https://www.worldometers.info/coronavirus/'
     html = requests.post(url)
     purehtml = html.content
@@ -52,14 +44,20 @@ def form(request):
 def local(request):
 
 
-    ip_request = requests.get('	https://get.geojs.io/v1/ip.json')
-    my_ip = ip_request.json()['ip']
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
 
-    geo_request_url = 'https://get.geojs.io/v1/ip/geo/' + my_ip + '.json'
+
+    geo_request_url = 'https://get.geojs.io/v1/ip/geo/' + ip + '.json'
     geo_request = requests.get(geo_request_url)
     geo_data = geo_request.json()
     local_country = geo_data['country']
     local_state = geo_data['region']
+
+    print(local_state)
 
     confirmcase = 'No data Found'
     deaths = 'No data Found'
@@ -115,4 +113,3 @@ def local(request):
 
     return render(request,'Indian.html',{'state':local_state,'cases':confirmcase,'deaths':deaths,'recover':recover,'recovered':data['TotalRecovered'],
                 'inc':new,'country':local_country,'ccases':data['TotalCases'],'cdeaths':data['TotalDeaths'],'newc':data['NewCases']})
-
