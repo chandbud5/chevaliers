@@ -5,8 +5,6 @@ from bs4 import BeautifulSoup
 
 # Create your views here.
 def index(request):
-
-
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
