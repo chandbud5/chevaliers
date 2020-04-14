@@ -5,15 +5,19 @@ from bs4 import BeautifulSoup
 
 # Create your views here.
 def index(request):
-    return render(request,'index.html')
+
+
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
+    return render(request,'index.html',{'ip':ip})
 
 def form(request):
     country = request.POST['country']
     country = country.capitalize()
-
-    if country=='Usa' or country=='Uk':
-        country = country.upper()
-
     # url declared and fetching from url
     url = 'https://www.worldometers.info/coronavirus/'
     html = requests.post(url)
@@ -113,3 +117,4 @@ def local(request):
 
     return render(request,'Indian.html',{'state':local_state,'cases':confirmcase,'deaths':deaths,'recover':recover,'recovered':data['TotalRecovered'],
                 'inc':new,'country':local_country,'ccases':data['TotalCases'],'cdeaths':data['TotalDeaths'],'newc':data['NewCases']})
+
