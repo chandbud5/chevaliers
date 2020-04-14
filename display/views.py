@@ -57,7 +57,6 @@ def local(request):
     local_country = geo_data['country']
     local_state = geo_data['region']
 
-    print(local_state)
 
     confirmcase = 'No data Found'
     deaths = 'No data Found'
