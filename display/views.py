@@ -64,6 +64,14 @@ def local(request):
     new = 'No data Found'
 
     if local_country=='India':
+
+        title1 = "State"
+        title2 = "District"
+        # COUNTRY DATA
+
+
+
+        # STATE DATA
         url = 'https://api.covid19india.org/data.json'
         html = requests.get(url).json()
         state = html['statewise']
@@ -78,37 +86,44 @@ def local(request):
         recover = html['statewise'][count - 1]['recovered']
         new = html['statewise'][count - 1]['deltaconfirmed']
 
+        return render(request,'Indian.html',{'title1' : "State",'title2' : "District",'state':local_state,
+        'cases':confirmcase,'deaths':deaths,'recover':recover,'inc':new})
+
+
+    else:
 
     # url declared and fetching from url
-    url = 'https://www.worldometers.info/coronavirus/'
-    html = requests.post(url)
-    purehtml = html.content
+        url = 'https://www.worldometers.info/coronavirus/'
+        html = requests.post(url)
+        purehtml = html.content
 
-    # Souping
-    soup = BeautifulSoup(purehtml,'html.parser')
-    th = soup.find_all('table' , id='main_table_countries_today')
+        # Souping
+        soup = BeautifulSoup(purehtml,'html.parser')
+        th = soup.find_all('table' , id='main_table_countries_today')
 
-    #getting all headings
-    para_list = []
-    for trr in th[0].find_all('tr'):
-        for i in trr.find_all('th'):
-            para_list.append(i.text)
+        #getting all headings
+        para_list = []
+        for trr in th[0].find_all('tr'):
+            for i in trr.find_all('th'):
+                para_list.append(i.text)
 
-    # fetching particular country's data
-    data_list = []
-    bool = False
-    for trr in th[0].find_all('tr'):
-        for i in trr.find_all('td'):
-            if i.text == local_country or bool:
-                bool = True
-                data_list.append(i.text)
-            else:
-                break
+        # fetching particular country's data
+        data_list = []
         bool = False
+        for trr in th[0].find_all('tr'):
+            for i in trr.find_all('td'):
+                if i.text == local_country or bool:
+                    bool = True
+                    data_list.append(i.text)
+                else:
+                    break
+            bool = False
 
 
-    #making dictionaries
-    data = dict(zip(para_list,data_list))
+        #making dictionaries
+        data = dict(zip(para_list,data_list))
 
-    return render(request,'Indian.html',{'state':local_state,'cases':confirmcase,'deaths':deaths,'recover':recover,'recovered':data['TotalRecovered'],
-                'inc':new,'country':local_country,'ccases':data['TotalCases'],'cdeaths':data['TotalDeaths'],'newc':data['NewCases']})
+        return render(request,'Indian.html',{'title1' : "Country",'title2' : "State",'state':local_state,
+        'cases':confirmcase,'deaths':deaths,'recover':recover,'recovered':data['TotalRecovered'],
+        'inc':new,'country':local_country,'ccases':data['TotalCases'],'deaths':data['TotalDeaths'],
+        'newc':data['NewCases']})
