@@ -76,7 +76,7 @@ def local(request):
         url = 'https://api.covid19india.org/data.json'
         html = requests.get(url).json()
         state = html['statewise']
-        
+
         count = 0
         for i in state:
             count += 1
@@ -88,8 +88,8 @@ def local(request):
         recover = html['statewise'][count - 1]['recovered']
         new = html['statewise'][count - 1]['deltaconfirmed']
 
-        return render(request,'Indian.html',{'title1' : "State",'title2' : "District",'state':local_state,
-        'cases':confirmcase,'deaths':deaths,'recover':recover,'inc':new, 'country':local_city})
+        return render(request,'Indian.html',{'state':local_state,'cases':confirmcase,'deaths':deaths,
+        'recover':recover,'inc':new, 'country':local_country})
 
 
     else:
