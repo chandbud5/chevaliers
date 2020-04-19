@@ -56,6 +56,7 @@ def local(request):
     geo_data = geo_request.json()
     local_country = geo_data['country']
     local_state = geo_data['region']
+    local_city = geo_data['city']
 
 
     confirmcase = 'No data Found'
@@ -75,6 +76,7 @@ def local(request):
         url = 'https://api.covid19india.org/data.json'
         html = requests.get(url).json()
         state = html['statewise']
+        
         count = 0
         for i in state:
             count += 1
@@ -87,7 +89,7 @@ def local(request):
         new = html['statewise'][count - 1]['deltaconfirmed']
 
         return render(request,'Indian.html',{'title1' : "State",'title2' : "District",'state':local_state,
-        'cases':confirmcase,'deaths':deaths,'recover':recover,'inc':new})
+        'cases':confirmcase,'deaths':deaths,'recover':recover,'inc':new, 'country':local_city})
 
 
     else:
