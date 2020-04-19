@@ -22,7 +22,7 @@ psycopg2==2.8.4
 pypiwin32==223
 python-dateutil==2.8.0
 pytz==2019.3
-pywin32==227
+pywin32
 PyYAML==5.2
 requests==2.23.0
 semantic-version==2.5.0
