@@ -2,6 +2,8 @@ from django.shortcuts import render
 
 import requests
 from bs4 import BeautifulSoup
+import googlemaps
+import pprint
 
 # Create your views here.
 def index(request):
@@ -43,7 +45,7 @@ def form(request):
 
 def local(request):
 
-
+    # Getting ip address of user
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
@@ -51,6 +53,7 @@ def local(request):
         ip = request.META.get('REMOTE_ADDR')
 
 
+    # Country and state of user
     geo_request_url = 'https://get.geojs.io/v1/ip/geo/' + ip + '.json'
     geo_request = requests.get(geo_request_url)
     geo_data = geo_request.json()
@@ -58,16 +61,48 @@ def local(request):
     local_state = geo_data['region']
     local_city = geo_data['city']
 
+    latitude = geo_data['latitude']
+    longitude = geo_data['longitude']
+    latlong = latitude+","+longitude
 
+    # Just for declaration with default values
     confirmcase = 'No data Found'
     deaths = 'No data Found'
     recover = 'No data Found'
     new = 'No data Found'
 
+
+    # Searching for places with Google maps 
+
+    # Setting up gooogle maps with api key
+    api_key = 'AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE'
+    gmaps = googlemaps.Client(key=api_key)
+    result = gmaps.places_nearby(location=latlong, radius=10000, open_now=True, type="grocery_or_supermarket" or "home_goods_store" )    
+    d = result['results']
+
+    names = []
+    names.append(result['results'][0]['name'])
+    names.append(result['results'][1]['name'])
+    names.append(result['results'][2]['name'])
+    names.append(result['results'][3]['name'])
+    
+    pr = []
+    pr.append(result['results'][0]['photos'][0]['photo_reference'])
+    pr.append(result['results'][1]['photos'][0]['photo_reference'])
+    pr.append(result['results'][2]['photos'][0]['photo_reference'])
+    pr.append(result['results'][3]['photos'][0]['photo_reference'])
+    
+
+    img = []
+    img.append('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='+pr[0]+'&key=AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE')
+    img.append('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='+pr[1]+'&key=AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE')
+    img.append('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='+pr[2]+'&key=AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE')
+    img.append('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='+pr[3]+'&key=AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE')
+    
+    # Getting data of a Country
+
     if local_country=='India':
 
-        title1 = "State"
-        title2 = "District"
         # COUNTRY DATA
         url = 'https://api.covid19india.org/data.json'
         html = requests.get(url).json()
@@ -95,7 +130,8 @@ def local(request):
 
         return render(request,'Indian.html',{'state':local_state,'cases':confirmcase,'deaths':deaths,
         'recover':recover,'inc':new, 'country':local_country,'ccases':ccases,'cdeaths':cdeaths,
-        'recovered':crecover,'newc':cnew})
+        'recovered':crecover,'newc':cnew,'b0':names[0], 'b1':names[1], 'b2':names[2], 'b3':names[3]
+        ,'img0':img[0],'img1':img[1],'img2':img[2],'img3':img[3] })
 
 
     else:
