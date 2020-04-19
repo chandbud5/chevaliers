@@ -69,8 +69,13 @@ def local(request):
         title1 = "State"
         title2 = "District"
         # COUNTRY DATA
-
-
+        url = 'https://api.covid19india.org/data.json'
+        html = requests.get(url).json()
+        state = html['statewise']
+        ccases = state[0]['confirmed']
+        cdeaths = state[0]['deaths']
+        cnew = state[0]['deltaconfirmed']
+        crecover = state[0]['recovered']
 
         # STATE DATA
         url = 'https://api.covid19india.org/data.json'
@@ -89,7 +94,8 @@ def local(request):
         new = html['statewise'][count - 1]['deltaconfirmed']
 
         return render(request,'Indian.html',{'state':local_state,'cases':confirmcase,'deaths':deaths,
-        'recover':recover,'inc':new, 'country':local_country})
+        'recover':recover,'inc':new, 'country':local_country,'ccases':ccases,'cdeaths':cdeaths,
+        'recovered':crecover,'newc':cnew})
 
 
     else:
@@ -125,7 +131,6 @@ def local(request):
         #making dictionaries
         data = dict(zip(para_list,data_list))
 
-        return render(request,'Indian.html',{'title1' : "Country",'title2' : "State",'state':local_state,
-        'cases':confirmcase,'deaths':deaths,'recover':recover,'recovered':data['TotalRecovered'],
-        'inc':new,'country':local_country,'ccases':data['TotalCases'],'deaths':data['TotalDeaths'],
-        'newc':data['NewCases']})
+        return render(request,'Indian.html',{'state':local_state,'cases':confirmcase,'deaths':deaths,
+        'recover':recover,'recovered':data['TotalRecovered'],'inc':new,'country':local_country,
+        'ccases':data['TotalCases'],'deaths':data['TotalDeaths'],'newc':data['NewCases']})
