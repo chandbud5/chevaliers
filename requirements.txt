@@ -7,7 +7,9 @@ cement==2.8.2
 certifi==2019.11.28
 chardet==3.0.4
 colorama==0.3.9
+dj-database-url==0.5.0
 Django==3.0.3
+django-heroku==0.3.1
 docutils==0.15.2
 future==0.16.0
 geoip2==3.0.0
@@ -19,8 +21,10 @@ pathspec==0.5.9
 Pillow==7.0.0
 pprint==0.1
 psycopg2==2.8.4
+pypiwin32==223
 python-dateutil==2.8.0
 pytz==2019.3
+pywin32==227
 PyYAML==5.2
 requests==2.23.0
 semantic-version==2.5.0
@@ -30,7 +34,4 @@ sqlparse==0.3.0
 termcolor==1.1.0
 urllib3==1.25.8
 wcwidth==0.1.9
-dj-database-url==0.5.0
-django-heroku==0.3.1
-gunicorn==20.0.4
 whitenoise==5.0.1
