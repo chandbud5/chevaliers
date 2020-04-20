@@ -46,17 +46,18 @@ def form(request):
 def local(request):
 
     # Getting ip address of user
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
+    #x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    #if x_forwarded_for:
+    #    ip = x_forwarded_for.split(',')[0]
+    #else:
+    #    ip = request.META.get('REMOTE_ADDR')
 
 
     # Country and state of user
-    geo_request_url = 'https://get.geojs.io/v1/ip/geo/' + ip + '.json'
+    geo_request_url = 'https://get.geojs.io/v1/ip/geo/43.241.146.152.json'
     geo_request = requests.get(geo_request_url)
     geo_data = geo_request.json()
+
     local_country = geo_data['country']
     local_state = geo_data['region']
     local_city = geo_data['city']
@@ -77,36 +78,25 @@ def local(request):
     # Setting up gooogle maps with api key
     api_key = 'AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE'
     gmaps = googlemaps.Client(key=api_key)
-    result = gmaps.places_nearby(location=latlong, radius=10000, open_now=True, type="grocery_or_supermarket" or "home_goods_store" )
-
-    # Names
-    names = []
-    names.append(result['results'][0]['name'])
-    names.append(result['results'][1]['name'])
-    names.append(result['results'][2]['name'])
-    names.append(result['results'][3]['name'])
+    result = gmaps.places_nearby(location=latlong, radius=10000, open_now=True, type="hospital")
 
     # Photo reference
-    pr = []
-    pr.append(result['results'][0]['photos'][0]['photo_reference'])
-    pr.append(result['results'][1]['photos'][0]['photo_reference'])
-    pr.append(result['results'][2]['photos'][0]['photo_reference'])
-    pr.append(result['results'][3]['photos'][0]['photo_reference'])
-    
-    # image URL
+    names = []
     img = []
-    img.append('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='+pr[0]+'&key=AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE')
-    img.append('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='+pr[1]+'&key=AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE')
-    img.append('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='+pr[2]+'&key=AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE')
-    img.append('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='+pr[3]+'&key=AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE')
-
-    # Vicinity
     v = []
-    v.append(result['results'][0]['vicinity'])
-    v.append(result['results'][1]['vicinity'])
-    v.append(result['results'][2]['vicinity'])
-    v.append(result['results'][3]['vicinity'])
+    for i in range(0,4):
 
+        names.append(result['results'][i]['name'])
+        v.append(result['results'][i]['vicinity'])
+
+        if 'photos' in result['results'][i].keys():
+            pr = result['results'][i]['photos'][0]['photo_reference']
+            img.append('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='+pr+'&key=AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE')
+
+        else :
+            img.append(result['results'][i]['icon'])
+
+    print(img)
     # Getting data of a Country
 
     if local_country=='India':
