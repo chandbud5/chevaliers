@@ -46,15 +46,15 @@ def form(request):
 def local(request):
 
     # Getting ip address of user
-    #x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    #if x_forwarded_for:
-    #    ip = x_forwarded_for.split(',')[0]
-    #else:
-    #    ip = request.META.get('REMOTE_ADDR')
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
 
 
     # Country and state of user
-    geo_request_url = 'https://get.geojs.io/v1/ip/geo/43.241.146.152.json'
+    geo_request_url = 'https://get.geojs.io/v1/ip/geo/'+ip+'.json'
     geo_request = requests.get(geo_request_url)
     geo_data = geo_request.json()
 
