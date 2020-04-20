@@ -46,6 +46,8 @@ def form(request):
 def local(request):
 
     # Getting ip address of user
+    
+    # TO RUN ON LOCAL MACHINE COMMENT 51-55 and on 59 put your ip in place of 'ip' (in string)
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
