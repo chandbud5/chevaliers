@@ -77,28 +77,36 @@ def local(request):
     # Setting up gooogle maps with api key
     api_key = 'AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE'
     gmaps = googlemaps.Client(key=api_key)
-    result = gmaps.places_nearby(location=latlong, radius=10000, open_now=True, type="grocery_or_supermarket" or "home_goods_store" )    
-    d = result['results']
+    result = gmaps.places_nearby(location=latlong, radius=10000, open_now=True, type="grocery_or_supermarket" or "home_goods_store" )
 
+    # Names
     names = []
     names.append(result['results'][0]['name'])
     names.append(result['results'][1]['name'])
     names.append(result['results'][2]['name'])
     names.append(result['results'][3]['name'])
-    
+
+    # Photo reference
     pr = []
     pr.append(result['results'][0]['photos'][0]['photo_reference'])
     pr.append(result['results'][1]['photos'][0]['photo_reference'])
     pr.append(result['results'][2]['photos'][0]['photo_reference'])
     pr.append(result['results'][3]['photos'][0]['photo_reference'])
     
-
+    # image URL
     img = []
     img.append('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='+pr[0]+'&key=AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE')
     img.append('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='+pr[1]+'&key=AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE')
     img.append('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='+pr[2]+'&key=AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE')
     img.append('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='+pr[3]+'&key=AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE')
-    
+
+    # Vicinity
+    v = []
+    v.append(result['results'][0]['vicinity'])
+    v.append(result['results'][1]['vicinity'])
+    v.append(result['results'][2]['vicinity'])
+    v.append(result['results'][3]['vicinity'])
+
     # Getting data of a Country
 
     if local_country=='India':
@@ -131,7 +139,7 @@ def local(request):
         return render(request,'Indian.html',{'state':local_state,'cases':confirmcase,'deaths':deaths,
         'recover':recover,'inc':new, 'country':local_country,'ccases':ccases,'cdeaths':cdeaths,
         'recovered':crecover,'newc':cnew,'b0':names[0], 'b1':names[1], 'b2':names[2], 'b3':names[3]
-        ,'img0':img[0],'img1':img[1],'img2':img[2],'img3':img[3] })
+        ,'img0':img[0],'img1':img[1],'img2':img[2],'img3':img[3], 'add0':v[0], 'add1':v[1], 'add2':v[2], 'add3':v[3] })
 
 
     else:
