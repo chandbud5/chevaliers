@@ -76,7 +76,7 @@ def local(request):
     # Searching for places with Google maps 
 
     # Setting up gooogle maps with api key
-    api_key = 'AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE'
+    api_key = 'AIzaSyAtfrvMgyBTPyLVy7aw3X91G4yGvzA2hFk'
     gmaps = googlemaps.Client(key=api_key)
     result = gmaps.places_nearby(location=latlong, radius=10000, open_now=True, type="hospital")
 
