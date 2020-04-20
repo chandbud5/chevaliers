@@ -41,7 +41,8 @@ def form(request):
     #making dictionaries
     data = dict(zip(para_list,data_list))
 
-    return render(request,'other.html',{'country':data['Country,Other'],'cases':data['TotalCases'],'deaths':data['TotalDeaths'],'perm':data['Tot\xa0Cases/1M pop'],'recovered':data['TotalRecovered']})
+    return render(request,'other.html',{'country':data['Country,Other'],'cases':data['TotalCases'],
+          'deaths':data['TotalDeaths'],'perm':data['Tot\xa0Cases/1M pop'],'recovered':data['TotalRecovered']})
 
 def local(request):
 
@@ -169,4 +170,6 @@ def local(request):
 
         return render(request,'Indian.html',{'state':local_state,'cases':confirmcase,'deaths':deaths,
         'recover':recover,'recovered':data['TotalRecovered'],'inc':new,'country':local_country,
-        'ccases':data['TotalCases'],'deaths':data['TotalDeaths'],'newc':data['NewCases']})
+        'ccases':data['TotalCases'],'deaths':data['TotalDeaths'],'newc':data['NewCases'],'b0':names[0], 'b1':names[1],
+        'b2':names[2], 'b3':names[3],'img0':img[0],'img1':img[1],'img2':img[2],'img3':img[3],
+        'add0':v[0], 'add1':v[1], 'add2':v[2], 'add3':v[3]})
