@@ -24,3 +24,5 @@ This is a web app which can give live and accurate data about the cases of COVID
  * [Chand Bud](https://github.com/chandbud5)
  * [Romit Dangodara](https://github.com/Romit-Dangodara)
  * [Darshan Patel](https://github.com/dmp2901)
+
+### Visit my portfolio at 👉👉 [CLICK HERE](https://chandbud.me/)
