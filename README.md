@@ -1,6 +1,6 @@
 # Relief
 
-Visit this web app at 👉 [CLICK HERE](https://chevaliers.herokuapp.com)
+**We have currently removed this web app from hosting server so you won't be able to visualize it**
 
 This is a web app which can give live and accurate data about the cases of COVID19 and some other information about your locality. This can be helpful in avoiding rumors.
 
