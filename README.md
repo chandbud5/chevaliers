@@ -15,7 +15,7 @@ This is a web app which can give live and accurate data about the cases of COVID
  * WebScrapping
  
  ## Resources used :
- * Website used to get data of different countries [WORLDOMETER](https://www.worldometers.info/coronavirus)
+ * Websites used to get data of different countries [WORLDOMETER](https://www.worldometers.info/coronavirus)
  * API - covid19india's API to get data of different states in INDIA
  * Google Maps places API
  * Heroku for deployment
