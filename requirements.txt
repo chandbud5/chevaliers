@@ -14,7 +14,6 @@ docutils==0.15.2
 future==0.16.0
 geoip2==3.0.0
 googlemaps==4.2.0
-gunicorn==20.0.4
 idna==2.7
 jmespath==0.9.5
 maxminddb==1.5.2
