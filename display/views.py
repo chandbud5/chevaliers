@@ -79,7 +79,7 @@ def local(request):
     # Searching for places with Google maps 
 
     # Setting up gooogle maps with api key
-    api_key = '' # PUT YOUR GOOGLE MAPS PLACES API KEY HERE
+    api_key = 'AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE'
     gmaps = googlemaps.Client(key=api_key)
     result = gmaps.places_nearby(location=latlong, radius=10000, open_now=True, type="hospital")
 
@@ -94,7 +94,7 @@ def local(request):
 
         if 'photos' in result['results'][i].keys():
             pr = result['results'][i]['photos'][0]['photo_reference']
-            img.append('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='+pr+'&key=') # PUT YOUR API KEY AFTER '=' sign
+            img.append('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='+pr+'&key=AIzaSyARkCNibIqeZsNydraFEU8u5DLQOjoUzmE')
 
         else :
             img.append(result['results'][i]['icon'])
